@@ -49,8 +49,18 @@ public class Menu {
                     }
                     break;
                 case 6:
-
                 case 7:
+                    System.out.println("Nhập giá trị muốn xóa:");
+                  int  number = sc.nextInt();
+                    if (findValue(arr,size,number) != -1) {
+                        int[] newArr = deleteElement(arr, size, number);
+                        size = newArr.length;
+                        arr = newArr;
+                        displayArray(arr, size);
+                    } else {
+                        System.out.println("Giá trị muốn xóa không ở trong mảng");
+                    }
+                    break;
                 case 8:
                     int [] reverseArray = reverseArr(arr,size);
                     System.out.println("Mảng đảo ngược là: "+reverseArray);
@@ -176,5 +186,46 @@ static int[] reverseArr(int[] arr, int size) {
         }
         return arr;
     }
-
+// Xóa
+static int[] deleteElement(int[] arr, int size, int value) {
+    int index;
+    int count = 0;
+    do {
+        index = findValue(arr, size, value);
+        if (index == -1) {
+            break;
+        } else {
+            for (int i = index; i < size - 1; i++) {
+                arr[i] = arr[i + 1];
+            }
+            count++;
+        }
+    } while (index != -1);
+    int[] arr1 = new int[size - count];
+    for (int j = 0; j < size - count; j++) {
+        arr1[j] = arr[j];
+    }
+    return arr1;
+}
+    static int findValue(int[] arr, int size, int value) {
+        int index = -1;
+        for (int i = 0; i < size; i++) {
+            if (arr[i] == value) {
+                index = i;
+            }
+        }
+        return index;
+    }
+//    Nhập vào
+    static int[] addElement(int[] arr, int size, int number, int index) {
+        int[] arr1 = new int[size + 1];
+        for (int i = 0; i < index; i++) {
+            arr1[i] = arr[i];
+        }
+        for (int j = size; j > index; j--) {
+            arr1[j] = arr[j - 1];
+        }
+        arr1[index] = number;
+        return arr1;
+    }
  }
